@@ -1,24 +1,28 @@
 # 💍 Wedding Gift Website
 
-Website one-page interativo para casamento com **apresentação do casal**, **galeria de fotos**, **história**, **lista de presentes**, **carrinho** e **checkout integrado com PIX e cartão**.
+Interactive one-page wedding website featuring the couple's profile, photo gallery, love story, gift registry, shopping cart, and integrated checkout with PIX and credit card payments.
 
-O projeto combina características de **landing page de alta conversão** com **funcionalidades completas de e-commerce**, tudo em uma única experiência fluida para o convidado.
-
----
-
-## 🎯 Objetivo do Projeto
-
-Criar uma experiência premium para convidados:
-
-- Conhecer a história do casal
-- Visualizar fotos e momentos
-- Escolher presentes
-- Finalizar pagamento sem sair do site
-- Processo rápido e intuitivo
+The project blends high-conversion landing page characteristics with full e-commerce functionality, delivering a seamless experience for every guest.
 
 ---
 
-## 🚀 Tecnologias
+## 🎯 Project Objective
+
+Creating a Premium Guest Experience:
+
+- Discover the Couple's Story: A narrative-driven section designed to share the couple's journey, milestones, and shared history.
+
+- View Photos and Cherished Moments: An interactive, high-performance media gallery providing a visual window into the couple’s life together.
+
+- Curated Gift Selection: A seamless digital registry where guests can browse and select gifts from a curated list with ease.
+
+- In-Platform Secure Checkout: A streamlined payment process that allows guests to complete transactions via PIX or Credit Card without ever leaving the website.
+
+- Fast and Intuitive Process: A "zero-friction" user interface designed for speed and simplicity, ensuring a smooth experience for guests of all ages.
+
+---
+
+## 🚀 Technologies
 
 ### Frontend
 
@@ -40,35 +44,35 @@ Criar uma experiência premium para convidados:
   - Row Level Security (RLS)
 
 ---
+### Payments
 
-### Pagamentos
+Modular architecture prepared for:
 
-Arquitetura modular preparada para:
-
-- Mercado Pago (PIX + Cartão)
+- Mercado Pago (PIX + Card)
 - Stripe
 - Asaas / Pagar.me
 
 ---
 
-### Infraestrutura
+### Infrastructure
 
 - Vercel (Deploy)
+
 - Supabase Cloud
 
 ---
 
-## 🧱 Arquitetura
+## 🧱 Architecture
 
-O site utiliza uma **estrutura single page por casamento**, combinando:
+The website uses a **single-page structure per wedding**, combining:
 
-- Server Side Rendering (SEO)
-- Client Side Interactions (Carrinho e Checkout)
-- Fetch incremental para paginação de presentes
+- Server-Side Rendering (SEO)
+- Client-Side Interactions (Cart and Checkout)
+- Incremental fetch for gift pagination
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 ```
 src/
 ├── app/
