@@ -72,42 +72,6 @@ The website uses a **single-page structure per wedding**, combining:
 
 ---
 
-## 📂 Project Structure
-```
-src/
-├── app/
-│ ├── layout.tsx
-│ ├── globals.css
-│ │
-│ └── [slug]/
-│ ├── layout.tsx
-│ └── page.tsx
-│
-├── components/
-│ ├── sections/
-│ │ ├── HeroSection.tsx
-│ │ ├── OurStorySection.tsx
-│ │ ├── MomentsGallery.tsx
-│ │ └── GiftListSection.tsx
-│ │
-│ ├── cart/
-│ │ └── CartDrawer.tsx
-│ │
-│ └── checkout/
-│ └── CheckoutModal.tsx
-│
-├── lib/
-│ ├── supabase.ts
-│ ├── payments/
-│ │ ├── provider.interface.ts
-│ │ └── mercadopago.ts
-│ │
-│ └── db.ts
-│
-└── store/
-└── cart-store.ts
-```
-
 > ✅ **Single Page Transactional Website**  
 > ✅ **One Page Checkout Experience**  
 > ✅ **E-commerce embedded experience**
