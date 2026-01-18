@@ -75,3 +75,12 @@ The website uses a **single-page structure per wedding**, combining:
 > ✅ **Single Page Transactional Website**  
 > ✅ **One Page Checkout Experience**  
 > ✅ **E-commerce embedded experience**
+
+
+<a href="https://wedding-gift-lp.vercel.app" target="_blank">
+  <img
+    src="https://github.com/user-attachments/assets/130d1bc0-254c-487c-9787-54e5ebe25306"
+    alt="Preview site casamento"
+    width="2021"
+  />
+</a>
