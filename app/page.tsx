@@ -6,6 +6,7 @@ import { GiftListSection } from "./components/GiftListSection";
 import { Footer } from "./components/Footer";
 import { CartDrawer } from "./components/CartDrawer";
 import { CountdownSection } from "./components/CountdownSection";
+import { RSVPModal } from "./components/rsvp/RSVPModal";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       </main>
       <Footer />
       <CartDrawer />
+      <RSVPModal />
     </div>
   );
 }

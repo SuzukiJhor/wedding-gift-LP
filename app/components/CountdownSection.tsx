@@ -9,10 +9,10 @@ interface CountdownProps {
 export function CountdownSection({
     weddingDate = "2026-06-20T16:00:00"
 }: CountdownProps) {
+    const [mounted, setMounted] = useState(false);
 
     const calculateTimeLeft = () => {
         const difference = +new Date(weddingDate) - +new Date();
-
         if (difference <= 0) return null;
 
         return {
@@ -26,6 +26,8 @@ export function CountdownSection({
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
+        setMounted(true);
+
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
@@ -33,45 +35,47 @@ export function CountdownSection({
         return () => clearInterval(timer);
     }, []);
 
-    if (!timeLeft) {
+    if (!mounted) {
         return (
-            <section className="py-16 text-center">
-                <h2 className="text-2xl font-semibold">
-                    💍 O grande dia chegou!
-                </h2>
+            <section className="relative py-16 md:py-24 overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-b from-pink-50 to-white blur-3xl opacity-60" />
+                <div className="relative z-10 max-w-6xl mx-auto px-4">
+                    <h2 className="text-center text-xl md:text-4xl font-semibold mb-8 md:mb-12">
+                        Carregando contagem...
+                    </h2>
+                    <div className="flex justify-between gap-2 md:grid md:grid-cols-4 md:gap-6">
+                        <TimeBox label="Dias" value={0} />
+                        <TimeBox label="Horas" value={0} />
+                        <TimeBox label="Minutos" value={0} />
+                        <TimeBox label="Segundos" value={0} />
+                    </div>
+                </div>
             </section>
         );
     }
 
+    if (!timeLeft) {
+        return (
+            <section className="py-16 text-center">
+                <h2 className="text-2xl font-semibold">💍 O grande dia chegou!</h2>
+            </section>
+        );
+    }
+
+    // Renderização normal do contador (agora segura no cliente)
     return (
         <section className="relative py-16 md:py-24 overflow-hidden">
-
-            {/* Background suave */}
             <div className="absolute inset-0 bg-linear-to-b from-pink-50 to-white blur-3xl opacity-60" />
-
             <div className="relative z-10 max-w-6xl mx-auto px-4">
-
                 <h2 className="text-center text-xl md:text-4xl font-semibold mb-8 md:mb-12">
                     Contagem Regressiva 💖
                 </h2>
-
-                {/* MOBILE = FLEX | DESKTOP = GRID */}
-                <div
-                    className="
-                        flex
-                        justify-between
-                        gap-2
-                        md:grid
-                        md:grid-cols-4
-                        md:gap-6
-                        "
-                >
+                <div className="flex justify-between gap-2 md:grid md:grid-cols-4 md:gap-6">
                     <TimeBox label="Dias" value={timeLeft.days} />
                     <TimeBox label="Horas" value={timeLeft.hours} />
                     <TimeBox label="Minutos" value={timeLeft.minutes} />
                     <TimeBox label="Segundos" value={timeLeft.seconds} />
                 </div>
-
             </div>
         </section>
     );
