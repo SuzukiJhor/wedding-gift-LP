@@ -38,10 +38,23 @@ export function HeroSection() {
                     </div>
 
                     {/* Names */}
-                    <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-ivory tracking-wide">
-                        Larissa & Gabriel
-                    </h1>
+                    <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-ivory tracking-wide text-center">
+                        Larissa
 
+                        {/* No mobile, quebra a linha. No desktop (md), esconde a quebra */}
+                        <br className="md:hidden" />
+
+                        {/* Espaço visível apenas no desktop ao lado do & */}
+                        <span className="hidden md:inline"> & </span>
+
+                        {/* & visível apenas no mobile (sozinho na linha) */}
+                        <span className="md:hidden">&</span>
+
+                        {/* No mobile, quebra a linha após o &. No desktop, esconde a quebra */}
+                        <br className="md:hidden" />
+
+                        Gabriel
+                    </h1>
                     {/* Date */}
                     <p className="font-body text-lg md:text-xl text-champagne tracking-[0.2em] uppercase">
                         15 de Maio de 2026
