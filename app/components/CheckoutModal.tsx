@@ -107,7 +107,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                     Obrigado pelo Carinho!
                   </h2>
                   <p className="font-body text-muted-foreground">
-                    Seu presente foi registrado com sucesso. Ana & Lucas agradecem
+                    Seu presente foi registrado com sucesso. Larissa & Gabriel agradecem
                     de coração!
                   </p>
                 </div>

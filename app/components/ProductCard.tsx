@@ -12,9 +12,11 @@ interface ProductCardProps {
 
 export function ProductCard({ product, index }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
+   const { toggleCart } = useCartStore();
 
   const handleAddToCart = () => {
     addItem(product);
+    toggleCart();
     toast.success(`${product.name} adicionado ao carrinho!`, {
       description: 'Continue navegando ou finalize seu presente.',
     });
