@@ -5,6 +5,7 @@ import { OurStorySection } from "./components/OurStorySection";
 import { GiftListSection } from "./components/GiftListSection";
 import { Footer } from "./components/Footer";
 import { CartDrawer } from "./components/CartDrawer";
+import { CountdownSection } from "./components/CountdownSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <CountdownSection weddingDate="2026-05-15T16:00:00" />
         <OurStorySection />
         <MomentsGallery />
         <GiftListSection />
