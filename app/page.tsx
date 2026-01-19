@@ -14,7 +14,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Header />
       <main>
-        <CelebrationFX intensity={35} />
+        {/* <CelebrationFX intensity={35} /> */}
         <HeroSection />
         <CountdownSection weddingDate="2026-05-15T16:00:00" />
         <Reveal>
