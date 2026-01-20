@@ -137,6 +137,13 @@ export function RSVPModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                 <Heart className="h-5 w-5 text-accent" fill="currentColor" />
               </div>
               <h2 className="font-display text-2xl text-foreground">Confirmação de Presença</h2>
+
+              {guest && (
+                <p className="font-body text-sm text-muted-foreground mt-2 italic">
+                  &quot;Sua presença é nosso maior presente&quot;
+                </p>
+              )}
+
             </div>
 
             <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">

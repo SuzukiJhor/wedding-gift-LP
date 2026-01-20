@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
-/* 1️⃣ Configuração do Tema (Tailwind v4) */
 @theme {
-  /* Cores Base mapeadas para as variáveis HSL */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -12,21 +10,17 @@
   --color-accent: hsl(var(--accent));
   --color-border: hsl(var(--border));
 
-  /* Cores Customizadas do Casamento */
   --color-gold: hsl(var(--gold));
   --color-champagne: hsl(var(--champagne));
   --color-ivory: hsl(var(--ivory));
 
-  /* Fontes */
   --font-display: "Playfair Display", serif;
   --font-body: "Inter", sans-serif;
 
-  /* Sombras Customizadas */
   --shadow-elegant: 0 4px 20px -2px hsl(35 25% 50% / 0.15);
   --shadow-elegant-lg: 0 10px 40px -5px hsl(35 25% 50% / 0.2);
 }
 
-/* 2️⃣ Variáveis CSS e Camada Base */
 @layer base {
   :root {
     /* Wedding Elegant Theme - Champagne & Gold */
@@ -46,7 +40,6 @@
     color-scheme: light;
   }
 
-  /* Suporte ao Modo Dark (Opcional, se quiser manter) */
   .dark {
     --background: 30 10% 10%;
     --foreground: 40 33% 95%;
@@ -74,20 +67,16 @@
   }
 }
 
-/* 3️⃣ Componentes e Efeitos Especiais */
 @layer components {
 
-  /* Gradiente Dourado */
   .bg-gradient-gold {
     background: linear-gradient(135deg, hsl(43 55% 58%) 0%, hsl(43 45% 75%) 50%, hsl(43 55% 58%) 100%);
   }
 
-  /* Efeito de Hover em Cards */
   .card-hover {
     @apply transition-all duration-300 ease-out hover:shadow-elegant-lg hover:-translate-y-1;
   }
 
-  /* Divisor Decorativo com Coração */
   .divider-ornament {
     @apply flex items-center justify-center gap-4;
   }
@@ -98,7 +87,6 @@
     @apply h-px w-16 bg-accent/50;
   }
 
-  /* Texto com Gradiente Dourado */
   .text-gradient-gold {
     background: linear-gradient(135deg, hsl(43 60% 45%) 0%, hsl(43 55% 58%) 50%, hsl(43 45% 75%) 100%);
     -webkit-background-clip: text;
@@ -107,7 +95,6 @@
   }
 }
 
-/* 4️⃣ Utilitários */
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
