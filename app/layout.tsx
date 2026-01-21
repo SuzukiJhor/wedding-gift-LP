@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Larissa & Gabriel | Nosso Casamento",
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="pt-BR" className="light" style={{ colorScheme: 'light' }}>
       <body className="antialiased">
         {children}
+        <Toaster key="toaster" richColors position="top-right" />
       </body>
     </html>
   );

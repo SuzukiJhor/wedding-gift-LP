@@ -18,8 +18,18 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    taxId: '',
     message: '',
   });
+
+  const formatCPF = (value: string) => {
+    return value
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+      .slice(0, 14);
+  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -31,35 +41,38 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.email.trim()) {
-      toast.error('Por favor, preencha todos os campos obrigatórios.');
+    if (!formData.name.trim() || !formData.email.trim() || formData.taxId.length < 14) {
+      toast.error('Por favor, preencha todos os campos obrigatórios corretamente.');
       return;
     }
 
     setIsLoading(true);
 
-    // 1. Chamada para a Server Action
-    const result = await createAbacatePayBilling({
-      name: formData.name,
-      message: formData.message,
-      email: formData.email,
-      items: items
-    });
+    try {
+      const result = await createAbacatePayBilling({
+        name: formData.name,
+        message: formData.message,
+        email: formData.email,
+        taxId: formData.taxId.replace(/\D/g, ''),
+        items: items
+      });
 
-    if (result.error || !result.url) {
-      toast.error('Erro ao processar pagamento. Tente novamente.');
+      if (result.error || !result.url) {
+        toast.error(result.error || 'Erro ao processar pagamento. Tente novamente.');
+        setIsLoading(false);
+        return;
+      }
+
+      toast.success('Redirecionando para o pagamento...');
+
+      setTimeout(() => {
+        clearCart();
+        window.location.href = result.url;
+      }, 1000);
+    } catch (error) {
+      toast.error('Ocorreu um erro inesperado.');
       setIsLoading(false);
-      return;
     }
-
-    // 2. Feedback de sucesso antes de redirecionar
-    toast.success('Redirecionando para o pagamento...');
-
-    // 3. Limpa o carrinho e redireciona para o checkout do AbacatePay
-    setTimeout(() => {
-      clearCart();
-      window.location.href = result.url; // Redireciona para o Pix/Cartão
-    }, 1000);
   };
 
   const handleClose = () => {
@@ -69,187 +82,145 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={handleClose}
-            className="fixed inset-0 z-50 bg-foreground/50 flex items-center justify-center p-4"
-          >
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-lg bg-background rounded-2xl shadow-2xl overflow-hidden"
-            >
-              {/* Close Button */}
-              <button
-                onClick={handleClose}
-                disabled={isLoading}
-                className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 z-10"
-                aria-label="Fechar"
-              >
-                <X className="h-5 w-5" />
-              </button>
+    <AnimatePresence mode="wait">
 
-              {isSuccess ? (
-                /* Success State */
-                <div className="p-8 text-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', delay: 0.2 }}
-                    className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-sage mb-6"
+      {isOpen && (
+        <motion.div
+          key="checkout-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={handleClose}
+          className="fixed inset-0 z-50 bg-foreground/50 flex items-center justify-center p-4 backdrop-blur-sm"
+        >
+          <motion.div
+            key="checkout-modal"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-lg bg-background rounded-3xl shadow-2xl overflow-hidden"
+          >
+            <AnimatePresence>
+              {isLoading && (
+                <motion.div
+                  key="loading-overlay"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-background/90 backdrop-blur-md"
+                >
+                  <div className="relative">
+                    <Loader2 className="h-12 w-12 animate-spin text-accent" />
+                    <Heart className="h-4 w-4 text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="currentColor" />
+                  </div>
+                  <motion.p
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-4 font-display text-lg text-foreground"
                   >
-                    <CheckCircle className="h-10 w-10 text-foreground" />
-                  </motion.div>
-                  <h2 className="font-display text-2xl text-foreground mb-2">
-                    Obrigado pelo Carinho!
-                  </h2>
-                  <p className="font-body text-muted-foreground">
-                    Seu presente foi registrado com sucesso. Larissa & Gabriel agradecem
-                    de coração!
+                    Preparando seu presente...
+                  </motion.p>
+                  <p className="text-sm text-muted-foreground font-body text-center px-4">Você será redirecionado para o pagamento seguro.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <button
+              onClick={handleClose}
+              disabled={isLoading}
+              className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 z-10"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {isSuccess ? (
+              <div className="p-12 text-center">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-sage mb-6">
+                  <CheckCircle className="h-10 w-10 text-foreground" />
+                </div>
+                <h2 className="font-display text-2xl text-foreground mb-2">Obrigado pelo Carinho!</h2>
+              </div>
+            ) : (
+              <>
+                <div className="p-8 bg-secondary/50 text-center">
+                  <div className="divider-ornament mb-3">
+                    <Heart className="h-4 w-4 text-accent" fill="currentColor" />
+                  </div>
+                  <h2 className="font-display text-2xl text-foreground">Finalizar Presente</h2>
+                  <p className="font-body text-sm text-muted-foreground mt-1">
+                    Total: {formatPrice(getTotalPrice())}
                   </p>
                 </div>
-              ) : (
-                <>
-                  {/* Header */}
-                  <div className="p-6 bg-secondary text-center">
-                    <div className="divider-ornament mb-3">
-                      <Heart className="h-4 w-4 text-accent" fill="currentColor" />
+
+                <form onSubmit={handleSubmit} className="p-8 space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label htmlFor="name" className="block font-body text-xs uppercase tracking-widest text-muted-foreground ml-1">Seu Nome *</label>
+                      <input
+                        id="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl font-body text-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                        placeholder="Nome Completo"
+                      />
                     </div>
-                    <h2 className="font-display text-2xl text-foreground">
-                      Finalizar Presente
-                    </h2>
-                    <p className="font-body text-sm text-muted-foreground mt-1">
-                      {items.length} {items.length === 1 ? 'item' : 'itens'} • Total:{' '}
-                      {formatPrice(getTotalPrice())}
-                    </p>
+                    <div className="space-y-1.5">
+                      <label htmlFor="taxId" className="block font-body text-xs uppercase tracking-widest text-muted-foreground ml-1">CPF *</label>
+                      <input
+                        id="taxId"
+                        type="text"
+                        required
+                        value={formData.taxId}
+                        onChange={(e) => setFormData({ ...formData, taxId: formatCPF(e.target.value) })}
+                        className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl font-body text-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                        placeholder="000.000.000-00"
+                      />
+                    </div>
                   </div>
 
-                  {/* Form */}
-                  <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block font-body text-sm text-foreground mb-2"
-                      >
-                        Seu Nome *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg font-body text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
-                        placeholder="Digite seu nome completo"
-                        disabled={isLoading}
-                      />
-                    </div>
+                  <div className="space-y-1.5">
+                    <label htmlFor="email" className="block font-body text-xs uppercase tracking-widest text-muted-foreground ml-1">Seu E-mail *</label>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl font-body text-sm focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                      placeholder="seu@email.com"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block font-body text-sm text-foreground mb-2"
-                      >
-                        Seu E-mail *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg font-body text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all"
-                        placeholder="seu@email.com"
-                        disabled={isLoading}
-                      />
-                    </div>
+                  <div className="space-y-1.5">
+                    <label htmlFor="message" className="block font-body text-xs uppercase tracking-widest text-muted-foreground ml-1">Mensagem (opcional)</label>
+                    <textarea
+                      id="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      rows={2}
+                      className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl font-body text-sm focus:ring-2 focus:ring-accent/20 outline-none resize-none transition-all"
+                      placeholder="Deixe um recado especial para os noivos..."
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block font-body text-sm text-foreground mb-2"
-                      >
-                        Mensagem para o Casal (opcional)
-                      </label>
-                      <textarea
-                        id="message"
-                        value={formData.message}
-                        onChange={(e) =>
-                          setFormData({ ...formData, message: e.target.value })
-                        }
-                        rows={3}
-                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg font-body text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all resize-none"
-                        placeholder="Deixe uma mensagem carinhosa..."
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    {/* Order Summary */}
-                    <div className="p-4 bg-muted rounded-lg space-y-2">
-                      {items.slice(0, 3).map((item) => (
-                        <div
-                          key={item.product.id}
-                          className="flex justify-between font-body text-sm"
-                        >
-                          <span className="text-muted-foreground truncate flex-1 mr-2">
-                            {item.quantity}x {item.product.name}
-                          </span>
-                          <span className="text-foreground">
-                            {formatPrice(item.product.price * item.quantity)}
-                          </span>
-                        </div>
-                      ))}
-                      {items.length > 3 && (
-                        <p className="text-sm text-muted-foreground">
-                          +{items.length - 3} outros itens
-                        </p>
-                      )}
-                      <div className="border-t border-border pt-2 mt-2 flex justify-between font-display">
-                        <span className="text-foreground">Total</span>
-                        <span className="text-accent">{formatPrice(getTotalPrice())}</span>
-                      </div>
-                    </div>
-
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full py-4 bg-accent text-accent-foreground font-body text-sm tracking-wider uppercase rounded-full hover:bg-accent/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                          Processando...
-                        </>
-                      ) : (
-                        <>
-                          <Heart className="h-4 w-4" />
-                          Confirmar Presente
-                        </>
-                      )}
-                    </motion.button>
-
-                    <p className="text-center font-body text-xs text-muted-foreground">
-                      Pagamento seguro via integração com gateway de pagamento
-                    </p>
-                  </form>
-                </>
-              )}
-            </motion.div>
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    type="submit"
+                    className="w-full py-4 bg-accent text-accent-foreground font-body text-sm tracking-widest uppercase rounded-full hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2 mt-2"
+                  >
+                    <Heart className="h-4 w-4" />
+                    Confirmar Presente
+                  </motion.button>
+                </form>
+              </>
+            )}
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
