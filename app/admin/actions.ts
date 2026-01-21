@@ -81,7 +81,7 @@ export async function getAdminData() {
     const giftsData = (receivedRaw || []).map(rg => ({
         id: rg.id,
         de: rg.sender_name,
-        item: rg.gift?.title || "Presente em Dinheiro",
+        item: Array.isArray(rg.gift) && rg.gift.length > 0 ? rg.gift[0].title : "Presente em Dinheiro",
         valor: new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
