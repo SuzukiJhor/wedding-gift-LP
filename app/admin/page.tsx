@@ -24,7 +24,13 @@ export default function AdminPage() {
         async function loadData() {
             try {
                 const { rsvpData, giftsData } = await getAdminData();
-                setRsvpData(rsvpData);
+                setRsvpData(
+                    rsvpData.map((g) => ({
+                        ...g,
+                        convidados: (g as any).convidados ?? g.totalPessoasNoConvite ?? 0,
+                        status: g.status === "Confirmado" ? "Confirmado" : "Pendente",
+                    })) as Guest[]
+                );
                 setGiftsData(giftsData);
             } catch (error) {
                 console.error("Erro ao carregar dados:", error);
