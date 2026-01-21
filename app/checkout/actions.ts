@@ -32,6 +32,7 @@ export async function createAbacatePayBilling(formData: {
         name: formData.name,
         email: formData.email,
         taxId: "64619472002", // USE UM CPF VÁLIDO PARA TESTE
+        cellphone: "11999999999",
       },
       metadata: [
         { key: "guest_message", value: formData.message || "Sem mensagem." }
@@ -39,7 +40,7 @@ export async function createAbacatePayBilling(formData: {
     };
 
     const billing = await abacate.billing.create(billingData);
-    
+
     if (billing?.data?.url) {
       return { url: billing.data.url };
     }
@@ -49,7 +50,7 @@ export async function createAbacatePayBilling(formData: {
     // ESTE LOG É O MAIS IMPORTANTE AGORA:
     const apiError = error?.response?.data;
     console.error("DETALHE DO ERRO NO ABACATEPAY:", JSON.stringify(apiError, null, 2));
-    
+
     return { error: apiError?.message || "Erro interno na integração" };
   }
 }
