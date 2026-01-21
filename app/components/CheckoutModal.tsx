@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Heart, Loader2, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCartStore } from '../stores/cartStore';
+import { createAbacatePayBilling } from '../checkout/actions';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
   const { items, getTotalPrice, clearCart } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,24 +38,28 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
 
     setIsLoading(true);
 
-    // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setIsLoading(false);
-    setIsSuccess(true);
-
-    // Show success message
-    toast.success('Presente confirmado com sucesso!', {
-      description: 'O casal receberá sua mensagem carinhosa.',
+    // 1. Chamada para a Server Action
+    const result = await createAbacatePayBilling({
+      name: formData.name,
+      message: formData.message,
+      email: formData.email,
+      items: items
     });
 
-    // Reset after delay
+    if (result.error || !result.url) {
+      toast.error('Erro ao processar pagamento. Tente novamente.');
+      setIsLoading(false);
+      return;
+    }
+
+    // 2. Feedback de sucesso antes de redirecionar
+    toast.success('Redirecionando para o pagamento...');
+
+    // 3. Limpa o carrinho e redireciona para o checkout do AbacatePay
     setTimeout(() => {
       clearCart();
-      setIsSuccess(false);
-      setFormData({ name: '', email: '', message: '' });
-      onClose();
-    }, 3000);
+      window.location.href = result.url; // Redireciona para o Pix/Cartão
+    }, 1000);
   };
 
   const handleClose = () => {
