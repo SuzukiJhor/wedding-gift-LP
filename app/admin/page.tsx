@@ -70,7 +70,7 @@ export default function AdminPage() {
                 bg: 'bg-emerald-50'
             },
             {
-                label: 'Total de Convidados Confirmados',
+                label: 'Total de Pessoas, Convidados + Acompanhantes + Filhos',
                 value: totalPessoasConfirmadas.toString(),
                 icon: Users,
                 color: 'text-blue-600',
