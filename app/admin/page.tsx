@@ -1,6 +1,5 @@
 "use client";
 
-} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../components/ui/button';
 import { useState, useMemo, useEffect } from 'react';
@@ -11,6 +10,7 @@ import {
     Users, CheckCircle2, LogOut, Search,
     Gift as GiftIcon, MoreHorizontal, Heart, TrendingUp,
     Loader2
+} from 'lucide-react';
 
 export default function AdminPage() {
     const router = useRouter();
