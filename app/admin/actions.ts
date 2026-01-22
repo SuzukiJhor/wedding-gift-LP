@@ -33,6 +33,8 @@ export interface Guest {
     status: 'Confirmado' | 'Pendente';
     data: string;
     totalPessoasNoConvite: number;
+    companion_names?: string[];
+    children_names?: string[];
 }
 
 export interface Gift {
@@ -74,7 +76,9 @@ export async function getAdminData() {
         codigo: g.invitation_code,
         status: g.confirmed ? 'Confirmado' : 'Pendente',
         totalPessoasNoConvite: 1 + (g.companion_names?.length || 0),
-        data: g.created_at ? new Date(g.created_at).toLocaleDateString('pt-BR') : "---"
+        data: g.created_at ? new Date(g.created_at).toLocaleDateString('pt-BR') : "---",
+        companion_names: g.companion_names || [],
+        children_names: g.children_names || [],
     }));
 
     // Mapeamento dos Presentes Recebidos para o Feed lateral

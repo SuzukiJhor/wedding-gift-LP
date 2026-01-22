@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { toast } from "sonner";
 import { loginAction } from "../login/actions";
 import { Label } from "./ui/label";
@@ -12,24 +12,29 @@ import { Loader2, Lock } from "lucide-react";
 export function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
 
-    async function handleSubmit(formData: FormData) {
+    async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         setIsLoading(true);
 
-        // Pequeno delay para a animação não "piscar" se a internet for rápida demais
-        const result = await loginAction(formData);
+        const formData = new FormData(event.currentTarget);
 
-        if (result?.error) {
-            toast.error(result.error, {
-                description: "Verifique suas credenciais e tente novamente."
-            });
+        try {
+            const result = await loginAction(formData);
+            if (result?.error) {
+                toast.error(result.error, {
+                    description: "Verifique suas credenciais e tente novamente."
+                });
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error("Erro no login:", error);
             setIsLoading(false);
         }
-        // Se der certo, o redirecionamento acontece pela Action
     }
 
     return (
         <motion.form
-            action={handleSubmit}
+            onSubmit={onSubmit}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -65,36 +70,35 @@ export function LoginForm() {
             <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-accent py-6 rounded-full relative overflow-hidden transition-all active:scale-[0.98]"
+                className="w-full bg-accent py-6 rounded-full relative overflow-hidden transition-all active:scale-[0.98] flex items-center justify-center"
             >
-                <AnimatePresence mode="wait">
-                    {isLoading ? (
-                        <motion.div
-                            key="loader"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="flex items-center gap-2"
-                        >
-                            <Loader2 className="animate-spin w-5 h-5" />
-                            <span>Autenticando...</span>
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="text"
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            className="flex items-center gap-2"
-                        >
-                            <Lock className="w-4 h-4" />
-                            <span>Entrar no Painel</span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <motion.div
+                    initial={false}
+                    animate={{
+                        opacity: isLoading ? 0 : 1,
+                        y: isLoading ? -20 : 0
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="flex items-center gap-2"
+                >
+                    <Lock className="w-4 h-4" />
+                    <span>Entrar no Painel</span>
+                </motion.div>
+
+                <motion.div
+                    initial={false}
+                    animate={{
+                        opacity: isLoading ? 1 : 0,
+                        y: isLoading ? 0 : 20
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="absolute flex items-center gap-2"
+                >
+                    <Loader2 className="animate-spin w-5 h-5" />
+                    <span>Autenticando...</span>
+                </motion.div>
             </Button>
 
-            {/* Texto de suporte discreto */}
             <p className="text-[10px] text-center text-muted-foreground uppercase tracking-widest mt-4">
                 Acesso restrito aos noivos
             </p>

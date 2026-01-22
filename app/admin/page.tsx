@@ -7,9 +7,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { getAdminData, Gift, Guest, logout } from './actions';
 import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {
     Users, CheckCircle2, LogOut, Search,
     Gift as GiftIcon, MoreHorizontal, Heart, TrendingUp,
-    Loader2
+    Loader2,
+    Baby,
+    UserPlus
 } from 'lucide-react';
 
 export default function AdminPage() {
@@ -194,10 +203,73 @@ export default function AdminPage() {
                                                             {item.status}
                                                         </span>
                                                     </td>
-                                                    <td className="px-6 py-4 text-right text-slate-300">
-                                                        <Button variant="ghost" size="icon" className="rounded-full hover:text-rose-500">
-                                                            <MoreHorizontal size={18} />
-                                                        </Button>
+                                                    <td className="px-6 py-4 text-right">
+                                                        <Dialog>
+                                                            <DialogTrigger asChild>
+                                                                <Button variant="ghost" size="icon" className="rounded-full hover:text-rose-500 hover:bg-rose-50">
+                                                                    <MoreHorizontal size={18} />
+                                                                </Button>
+                                                            </DialogTrigger>
+                                                            <DialogContent className="sm:max-w-md bg-white">
+                                                                <DialogHeader>
+                                                                    <DialogTitle className="font-serif text-xl border-b pb-2">
+                                                                        Detalhes do Convite: {item.nome}
+                                                                    </DialogTitle>
+                                                                </DialogHeader>
+
+                                                                <div className="space-y-6 py-4">
+                                                                    {/* Acompanhantes Adultos */}
+                                                                    <div>
+                                                                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                                                                            <UserPlus size={14} className="text-blue-500" />
+                                                                            Acompanhantes ({item.companion_names?.length || 0})
+                                                                        </h4>
+                                                                        {item.companion_names && item.companion_names.length > 0 ? (
+                                                                            <ul className="space-y-2">
+                                                                                {item.companion_names.map((name, i) => (
+                                                                                    <li key={i} className="text-sm text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                                                                                        {name}
+                                                                                    </li>
+                                                                                ))}
+                                                                            </ul>
+                                                                        ) : (
+                                                                            <p className="text-xs italic text-slate-400">Nenhum acompanhante adulto.</p>
+                                                                        )}
+                                                                    </div>
+
+                                                                    {/* Filhos / Crianças */}
+                                                                    <div>
+                                                                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                                                                            <Baby size={14} className="text-rose-500" />
+                                                                            Crianças/Filhos ({item.children_names?.length || 0})
+                                                                        </h4>
+                                                                        {item.children_names && item.children_names.length > 0 ? (
+                                                                            <ul className="space-y-2">
+                                                                                {item.children_names.map((name, i) => (
+                                                                                    <li key={i} className="text-sm text-slate-700 bg-rose-50/30 p-2 rounded-lg border border-rose-100/50">
+                                                                                        {name}
+                                                                                    </li>
+                                                                                ))}
+                                                                            </ul>
+                                                                        ) : (
+                                                                            <p className="text-xs italic text-slate-400">Nenhuma criança listada.</p>
+                                                                        )}
+                                                                    </div>
+
+                                                                    <div className="pt-4 border-t flex justify-between items-center">
+                                                                        <span className="text-[10px] font-bold text-slate-400 uppercase">Código: {item.codigo}</span>
+                                                                        <Button
+                                                                            variant="destructive"
+                                                                            size="sm"
+                                                                            className="h-8 text-xs"
+                                                                            onClick={() => {/* Sua lógica de deleteGuest aqui */ }}
+                                                                        >
+                                                                            Excluir Convite
+                                                                        </Button>
+                                                                    </div>
+                                                                </div>
+                                                            </DialogContent>
+                                                        </Dialog>
                                                     </td>
                                                 </motion.tr>
                                             ))}

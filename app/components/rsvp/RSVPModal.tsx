@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Heart, Check, Loader2, Users, Minus, Plus, CalendarCheck, MessageSquare } from "lucide-react";
 import { findGuestByCode, submitRSVP } from "@/app/rsvp/actions";
+import { toast } from "sonner";
 
 type FormState = "form" | "loading" | "success";
 
@@ -72,6 +73,9 @@ export function RSVPModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
 
     if (res?.error) {
       setFormState("form");
+      toast.error(res.error, {
+        description: "Verifique Seu código e tente novamente."
+      });
       setErrorMessage(res.error);
       return;
     }
