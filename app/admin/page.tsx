@@ -28,17 +28,15 @@ export default function AdminPage() {
     const [rsvpData, setRsvpData] = useState<Guest[]>([]);
     const [giftsData, setGiftsData] = useState<Gift[]>([]);
 
-    // Carregar dados da Action
     useEffect(() => {
         async function loadData() {
             try {
                 const { rsvpData, giftsData } = await getAdminData();
                 setRsvpData(
-                    rsvpData.map((g) => ({
-                        ...g,
-                        convidados: (g as any).convidados ?? g.totalPessoasNoConvite ?? 0,
-                        status: g.status === "Confirmado" ? "Confirmado" : "Pendente",
-                    })) as Guest[]
+                    rsvpData.map((item: any) => ({
+                        ...item,
+                        convidados: item.convidados ?? 0
+                    }))
                 );
                 setGiftsData(giftsData);
             } catch (error) {
@@ -192,8 +190,7 @@ export default function AdminPage() {
                                                 <motion.tr layout key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="hover:bg-slate-50 transition-colors">
                                                     <td className="px-6 py-4">
                                                         <p className="font-bold text-slate-700">{item.nome}</p>
-                                                        <p className="text-[11px] text-slate-400">{item.convidados} pessoas</p>
-                                                    </td>
+                                                        <p className="text-[11px] text-slate-400">{item.totalPessoasNoConvite} pessoas</p>                                                    </td>
                                                     <td className="px-6 py-4 hidden md:table-cell">
                                                         <span className="font-mono text-xs bg-slate-100 px-2 py-0.5 rounded text-slate-500">{item.codigo}</span>
                                                     </td>
