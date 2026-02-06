@@ -54,7 +54,7 @@ export const products: Product[] = [
     name: "Fila VIP do buffet",
     category: "Comida & Bebida",
     price: 250.00,
-    image: "https://br.pinterest.com/pin/76139049947527271/",
+    image: "/passe-frente.jpg",
     description: "Passe na frente do buffet sem culpa."
   },
   {
@@ -62,7 +62,7 @@ export const products: Product[] = [
     name: "Repeteco liberado",
     category: "Comida & Bebida",
     price: 200.00,
-    image: "https://i.pinimg.com/1200x/37/5e/cb/375ecb634bad823eaffcf69d8f00f66a.jpg",
+    image: "https://i.pinimg.com/1200x/26/fc/99/26fc99540e3f5e8fe19bf31dd170054a.jpg",
     description: "Repita o prato sem julgamentos."
   },
   {
@@ -103,7 +103,7 @@ export const products: Product[] = [
     name: "Pergunta clássica",
     category: "Brincadeiras & Liberdades",
     price: 300.00,
-    image: "https://i.pinimg.com/1200x/85/40/55/854055366d02a36498cd4ed55b122e75.jpg",
+    image: "/classica.jpg",
     description: "Pergunte 'e os filhos?' sem constrangimento."
   },
   {
@@ -127,7 +127,7 @@ export const products: Product[] = [
     name: "Spa relax pré-casamento",
     category: "Bem-estar & Relacionamento",
     price: 1000.00,
-    image: "https://br.pinterest.com/pin/991566042972533138/",
+    image: "/banho.png",
     description: "Momento relaxante para a noiva."
   },
   {
@@ -192,7 +192,7 @@ export const products: Product[] = [
     name: "Fundo bebê",
     category: "Contribuições & Apoio Financeiro",
     price: 500.00,
-    image: "https://br.pinterest.com/pin/336644140917897258/",
+    image: "https://i.pinimg.com/736x/cd/19/25/cd1925f6468cf3ef13d9c14f1ac35817.jpg",
     description: "Ajuda para o primeiro filho."
   },
   {
@@ -200,7 +200,7 @@ export const products: Product[] = [
     name: "Silêncio garantido",
     category: "Vida a Dois",
     price: 150.00,
-    image: "https://br.pinterest.com/pin/4606478867898946304/",
+    image: "https://i.pinimg.com/736x/21/e0/c0/21e0c0deef706fd97730acbfa31c1b9e.jpg",
     description: "Tampão de ouvido para dormir melhor."
   },
   {
@@ -208,7 +208,7 @@ export const products: Product[] = [
     name: "Chef iniciante",
     category: "Vida a Dois",
     price: 300.00,
-    image: "https://br.pinterest.com/pin/91972017379020107/",
+    image: "https://i.pinimg.com/736x/2f/00/62/2f0062d9dfddaadac9132531222ea945.jpg",
     description: "Curso de culinária para o noivo."
   },
   {
@@ -216,7 +216,7 @@ export const products: Product[] = [
     name: "Cobertor da razão",
     category: "Vida a Dois",
     price: 200.00,
-    image: "https://br.pinterest.com/pin/91972017379020107/",
+    image: "/cberta.jpg",
     description: "Para a noiva estar sempre coberta de razão."
   },
   {
@@ -224,7 +224,7 @@ export const products: Product[] = [
     name: "Maratona a dois",
     category: "Festa & Diversão",
     price: 150.00,
-    image: "https://br.pinterest.com/pin/313352086588252328/",
+    image: "https://i.pinimg.com/1200x/eb/90/fc/eb90fc1dc0186cb4b3d9cb033a884001.jpg",
     description: "3 meses de Netflix garantidos."
   },
   {
@@ -232,7 +232,7 @@ export const products: Product[] = [
     name: "Truco liberado",
     category: "Festa & Diversão",
     price: 1500.00,
-    image: "https://br.pinterest.com/pin/1900024837308885/",
+    image: "https://i.pinimg.com/1200x/95/69/a2/9569a24aa31101c1bcd0293d5adc7da2.jpg",
     description: "Jogue truco no time do noivo."
   },
   {
@@ -240,7 +240,7 @@ export const products: Product[] = [
     name: "Autoridade máxima",
     category: "Brincadeiras & Liberdades",
     price: 300.00,
-    image: "https://br.pinterest.com/pin/2392606047831540/",
+    image: "https://i.pinimg.com/1200x/ea/e0/d7/eae0d73eab32896efda556b868b30743.jpg",
     description: "Rolo de macarrão oficial da casa."
   },
   {
@@ -248,7 +248,7 @@ export const products: Product[] = [
     name: "Proteção anti-buquê",
     category: "Brincadeiras & Liberdades",
     price: 500.00,
-    image: "https://br.pinterest.com/pin/76139049947525729/",
+    image: "/evite-boque.jpg",
     description: "Evite que o buquê seja lançado."
   },
   {
@@ -256,7 +256,7 @@ export const products: Product[] = [
     name: "Sushi garantido",
     category: "Comida & Bebida",
     price: 200.00,
-    image: "https://br.pinterest.com/pin/397231629653827864/",
+    image: "/food-japan.jpg",
     description: "Rodízio japonês para a noiva."
   },
 
@@ -265,7 +265,7 @@ export const products: Product[] = [
     name: "Dia de jogo",
     category: "Estilo & Utilidades",
     price: 200.00,
-    image: "https://br.pinterest.com/pin/197947346118679075/",
+    image: "/jogo.png",
     description: "Camiseta do time para o noivo."
   },
   {
@@ -297,7 +297,7 @@ export const products: Product[] = [
     name: "Visual em dia",
     category: "Estilo & Utilidades",
     price: 700.00,
-    image: "http://i.pinimg.com/1200x/5a/7d/c4/5a7dc4ab9106650e9d47b13bac767baa.jpg",
+    image: "/cabelo.jpg",
     description: "Barba e cabelo do noivo por um ano."
   },
   {
@@ -313,7 +313,7 @@ export const products: Product[] = [
     name: "Ajuda abençoada",
     category: "Contribuições & Apoio Financeiro",
     price: 1000.00,
-    image: "https://i.pinimg.com/1200x/08/dc/4c/08dc4ce4644013cac8f4b1197e5ebc6d.jpg",
+    image: "/rica.jpg",
     description: "Contribuição generosa."
   },
   {
@@ -321,7 +321,7 @@ export const products: Product[] = [
     name: "Kit calma",
     category: "Bem-estar & Relacionamento",
     price: 150.00,
-    image: "https://i.pinimg.com/1200x/25/cb/a4/25cba46c21e1f58b7c8f0fb6a0d79f1b.jpg",
+    image: "https://i.pinimg.com/736x/d2/a5/0d/d2a50ddc4782b781af8c849754bbdbb5.jpg",
     description: "Calmantes para o grande dia."
   },
   {
@@ -329,7 +329,7 @@ export const products: Product[] = [
     name: "Lembrancinha sincera",
     category: "Contribuições & Apoio Financeiro",
     price: 100.00,
-    image: "https://br.pinterest.com/pin/67342956923152928/",
+    image: "/simples.jpg",
     description: "Presente simples, mas de coração."
   },
   {

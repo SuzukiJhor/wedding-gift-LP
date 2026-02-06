@@ -12,7 +12,7 @@ export function GiftListSection() {
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = !selectedCategory || product.category === selectedCategory;
-    const matchesSearch = !searchQuery || 
+    const matchesSearch = !searchQuery ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -44,10 +44,10 @@ export function GiftListSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row gap-4 mb-10"
+          className="flex flex-col gap-4 mb-10"
         >
           {/* Search */}
-          <div className="relative flex-1 max-w-md">
+          <div className="relative w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
@@ -62,11 +62,10 @@ export function GiftListSection() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 rounded-full font-body text-sm transition-colors ${
-                !selectedCategory
-                  ? 'bg-accent text-accent-foreground'
-                  : 'bg-background text-muted-foreground hover:text-foreground border border-border'
-              }`}
+              className={`px-4 py-2 rounded-full font-body text-sm transition-colors ${!selectedCategory
+                ? 'bg-accent text-accent-foreground'
+                : 'bg-background text-muted-foreground hover:text-foreground border border-border'
+                }`}
             >
               Todos
             </button>
@@ -74,11 +73,10 @@ export function GiftListSection() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full font-body text-sm transition-colors ${
-                  selectedCategory === category
-                    ? 'bg-accent text-accent-foreground'
-                    : 'bg-background text-muted-foreground hover:text-foreground border border-border'
-                }`}
+                className={`px-4 py-2 rounded-full font-body text-sm transition-colors ${selectedCategory === category
+                  ? 'bg-accent text-accent-foreground'
+                  : 'bg-background text-muted-foreground hover:text-foreground border border-border'
+                  }`}
               >
                 {category}
               </button>
