@@ -7,7 +7,6 @@ import { MomentsGallery } from "./components/MomentsGallery";
 import { OurStorySection } from "./components/OurStorySection";
 import { GiftListSection } from "./components/GiftListSection";
 import { CountdownSection } from "./components/CountdownSection";
-import { CelebrationFX } from "./components/effects/CelebrationFX";
 
 export default function Home() {
   return (
