@@ -273,7 +273,7 @@ export const products: Product[] = [
     name: "Defesa do noivo",
     category: "Brincadeiras & Liberdades",
     price: 150.00,
-    image: "https://br.pinterest.com/pin/242561129984219664/",
+    image: "https://i.pinimg.com/1200x/b2/57/53/b2575385d3286c9ea427b3d11d7c2a44.jpg",
     description: "Capacete contra o rolo de macarrão."
   },
   {
@@ -281,7 +281,7 @@ export const products: Product[] = [
     name: "Ajuda na festa",
     category: "Contribuições & Apoio Financeiro",
     price: 800.00,
-    image: "https://br.pinterest.com/pin/362469470041069285/",
+    image: "https://i.pinimg.com/736x/6f/8f/13/6f8f1360190f67c7afa5f9b893541c25.jpg",
     description: "Contribuição direta para a festa."
   },
   {
@@ -289,7 +289,7 @@ export const products: Product[] = [
     name: "Sanidade do casal",
     category: "Bem-estar & Relacionamento",
     price: 600.00,
-    image: "https://br.pinterest.com/pin/48906345949776936/",
+    image: "https://i.pinimg.com/736x/4b/8d/55/4b8d556a13c9aded6bc764073de64a2b.jpg",
     description: "Psicólogo para os noivos."
   },
   {
@@ -297,7 +297,7 @@ export const products: Product[] = [
     name: "Visual em dia",
     category: "Estilo & Utilidades",
     price: 700.00,
-    image: "https://br.pinterest.com/pin/76139049947525726/",
+    image: "http://i.pinimg.com/1200x/5a/7d/c4/5a7dc4ab9106650e9d47b13bac767baa.jpg",
     description: "Barba e cabelo do noivo por um ano."
   },
   {
@@ -305,7 +305,7 @@ export const products: Product[] = [
     name: "Abastecimento do lar",
     category: "Vida a Dois",
     price: 400.00,
-    image: "https://br.pinterest.com/pin/235594624252586708/",
+    image: "https://i.pinimg.com/736x/38/d2/0d/38d20d73e4440589531e6d5e277f902e.jpg",
     description: "Ajuda com compras do mercado."
   },
   {
@@ -313,7 +313,7 @@ export const products: Product[] = [
     name: "Ajuda abençoada",
     category: "Contribuições & Apoio Financeiro",
     price: 1000.00,
-    image: "https://br.pinterest.com/pin/67342956923152925/",
+    image: "https://i.pinimg.com/1200x/08/dc/4c/08dc4ce4644013cac8f4b1197e5ebc6d.jpg",
     description: "Contribuição generosa."
   },
   {
@@ -321,7 +321,7 @@ export const products: Product[] = [
     name: "Kit calma",
     category: "Bem-estar & Relacionamento",
     price: 150.00,
-    image: "https://br.pinterest.com/pin/82120393200834423/",
+    image: "https://i.pinimg.com/1200x/25/cb/a4/25cba46c21e1f58b7c8f0fb6a0d79f1b.jpg",
     description: "Calmantes para o grande dia."
   },
   {
@@ -337,7 +337,7 @@ export const products: Product[] = [
     name: "Futuro garantido",
     category: "Contribuições & Apoio Financeiro",
     price: 500.00,
-    image: "https://br.pinterest.com/pin/146155950401642959/",
+    image: "https://i.pinimg.com/1200x/e1/e4/e6/e1e4e69ff9e729a283d247b4ec7418e9.jpg",
     description: "Ajuda para a aposentadoria dos noivos."
   },
   {
@@ -345,7 +345,7 @@ export const products: Product[] = [
     name: "Controle saudável",
     category: "Vida a Dois",
     price: 80.00,
-    image: "https://br.pinterest.com/pin/52002570694602917/",
+    image: "https://i.pinimg.com/736x/24/9b/f1/249bf1d38763def3da53013b01958339.jpg",
     description: "Balança para manter a saúde em dia."
   },
   {
@@ -353,7 +353,7 @@ export const products: Product[] = [
     name: "Faxina automática",
     category: "Vida a Dois",
     price: 1500.00,
-    image: "https://br.pinterest.com/pin/951737333781345944/",
+    image: "https://i.pinimg.com/736x/c1/ef/44/c1ef4447c213022d421abb224356e23c.jpg",
     description: "Robô para ajudar na limpeza da casa."
   }
 ];
