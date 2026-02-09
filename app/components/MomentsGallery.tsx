@@ -6,11 +6,12 @@ import Image from 'next/image';
 
 // Referência direta da pasta public
 const images = [
-    { src: "/img1.jpeg", alt: 'Momento especial 1' },
-    { src: "/img2.jpeg", alt: 'Momento especial 2' },
-    { src: "/img3.jpeg", alt: 'Momento especial 3' },
-    { src: "/img4.jpeg", alt: 'Momento especial 4' },
-    { src: "/img5.jpeg", alt: 'Momento especial 5' },
+    { src: "/img01.jpg", alt: 'Momento especial 1' },
+    { src: "/img02.jpg", alt: 'Momento especial 2' },
+    { src: "/img03.jpg", alt: 'Momento especial 3' },
+    { src: "/img04.jpeg", alt: 'Momento especial 4' },
+    { src: "/img05.jpeg", alt: 'Momento especial 5' },
+    { src: "/img06.jpeg", alt: 'Momento especial 6' },
 ];
 
 export function MomentsGallery() {

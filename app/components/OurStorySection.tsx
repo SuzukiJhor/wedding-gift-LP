@@ -71,7 +71,7 @@ export function OurStorySection() {
                         */}
                         <div className="relative w-full h-112.5 md:h-137.5 lg:h-150 rounded-lg overflow-hidden shadow-elegant-lg">
                             <Image
-                                src="/img2.jpeg"
+                                src="/img02.jpg"
                                 alt="Larissa e Gabriel"
                                 fill
                                 className="object-cover"
