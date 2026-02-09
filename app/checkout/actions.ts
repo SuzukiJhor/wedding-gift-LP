@@ -34,7 +34,7 @@ export async function createAbacatePayBilling(formData: {
         taxId: cleanTaxId,
         cellphone: "11999999999"
       },
-      returnUrl: `${baseUrl}/agradecimento`,
+      returnUrl: `${baseUrl}`,
       completionUrl: `${baseUrl}/agradecimento`,
     };
 

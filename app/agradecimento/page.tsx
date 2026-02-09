@@ -75,12 +75,17 @@ export default function AgradecimentoPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6, duration: 0.5 }}
                     >
+                        <motion.div
+                            className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground mb-4 leading-tight"
+                        >
+                            Obrigado
+                        </motion.div>
                         <Button
                             onClick={handleConfirmPresence}
                             aria-label="Confirmar presença no casamento"
                             className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium px-8 py-6 text-base rounded-full shadow-md hover:shadow-lg transition-all duration-300"
                         >
-                            Obrigado
+                            Voltar ao Site
                         </Button>
                     </motion.div>
 
