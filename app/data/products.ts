@@ -26,6 +26,14 @@ export const products: Product[] = [
     description: "Direito de dar um pitaco no casamento uma vez."
   },
   {
+    id: "43",
+    name: "Ajuda na Lua de Mel",
+    category: "Deus te iluminou e vc resolveu dar uma ótima ajuda na lua de mel",
+    price: 5000.00,
+    image: "/img-rica.png",
+    description: "Robô para ajudar na limpeza da casa."
+  },
+  {
     id: "2",
     name: "Pitaco sem limites",
     category: "Brincadeiras & Liberdades",
@@ -354,14 +362,6 @@ export const products: Product[] = [
     category: "Vida a Dois",
     price: 1500.00,
     image: "https://i.pinimg.com/736x/c1/ef/44/c1ef4447c213022d421abb224356e23c.jpg",
-    description: "Robô para ajudar na limpeza da casa."
-  },
-  {
-    id: "43",
-    name: "Ajuda na Lua de Mel",
-    category: "Deus te iluminou e vc resolveu dar uma ótima ajuda na lua de mel",
-    price: 5000.00,
-    image: "/img-rica.png",
     description: "Robô para ajudar na limpeza da casa."
   }
 ];
