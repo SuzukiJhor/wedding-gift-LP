@@ -52,7 +52,7 @@ export function HeroSection() {
           <div className="flex justify-center">
             <div className="px-6 py-2 rounded-full border border-champagne/40 backdrop-blur-md bg-black/30 shadow-elegant">
               <p className="font-body text-sm md:text-base text-champagne tracking-[0.35em] uppercase">
-                15 de Maio de 2026
+                09 de Maio de 2026
               </p>
             </div>
           </div>

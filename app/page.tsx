@@ -15,7 +15,7 @@ export default function Home() {
       <main>
         {/* <CelebrationFX intensity={35} /> */}
         <HeroSection />
-        <CountdownSection weddingDate="2026-05-15T16:00:00" />
+        <CountdownSection weddingDate="2026-05-09T16:00:00" />
         <Reveal>
           <OurStorySection />
         </Reveal>
