@@ -28,10 +28,10 @@ export const products: Product[] = [
   {
     id: "43",
     name: "Ajuda na Lua de Mel",
-    category: "Deus te iluminou e vc resolveu dar uma ótima ajuda na lua de mel",
+    category: "Vida a Dois",
     price: 5000.00,
     image: "/img-rica.png",
-    description: "Robô para ajudar na limpeza da casa."
+    description: "Deus te iluminou e vc resolveu dar uma ótima ajuda na lua de mel",
   },
   {
     id: "2",

@@ -27,33 +27,14 @@ export function OurStorySection() {
 
                         <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
                             <p>
-                                Tudo começou em uma tarde de verão, quando nossos caminhos se
-                                cruzaram pela primeira vez. Um olhar, um sorriso, e soubemos
-                                que algo especial estava nascendo.
+                                Começou de uma forma simples e cheia de significado. Foi através da tia dela, que trabalhava com ele, que nossos caminhos se cruzaram. Logo depois, começamos a conversar pelo Instagram, sem imaginar tudo o que ainda estava por vir.
+                                Nosso primeiro convite especial veio de um jeito inesperado: uma tatuagem — a do Chico — e a ideia de irmos juntos. A partir desse dia, não paramos mais de nos falar. Os encontros se tornaram constantes.
+
                             </p>
                             <p>
-                                Foram anos construindo memórias, enfrentando desafios juntos e
-                                descobrindo que o amor verdadeiro é feito de pequenos gestos
-                                cotidianos.
+                                Vivemos muitas experiências juntos, enfrentamos desafios e aprendemos que, quando se escolhe caminhar lado a lado, nada é capaz de nos abalar. Com amor, parceria e fé, fomos construindo uma história sólida, cheia de companheirismo e carinho.
+                                Hoje, com o coração transbordando de gratidão, estamos dando um novo passo: planejando o nosso casamento e celebrando o amor que começou de forma simples, mas se transformou em algo para a vida inteira
                             </p>
-                        </div>
-
-                        {/* Timeline */}
-                        <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
-                            <div className="text-center">
-                                <span className="block font-display text-2xl text-accent">2019</span>
-                                <span className="text-xs text-muted-foreground">Início</span>
-                            </div>
-                            <div className="w-8 h-px bg-accent/30" />
-                            <div className="text-center">
-                                <span className="block font-display text-2xl text-accent">2022</span>
-                                <span className="text-xs text-muted-foreground">Noivado</span>
-                            </div>
-                            <div className="w-8 h-px bg-accent/30" />
-                            <div className="text-center">
-                                <span className="block font-display text-2xl text-accent">2025</span>
-                                <span className="text-xs text-muted-foreground">Casamento</span>
-                            </div>
                         </div>
                     </motion.div>
 
@@ -71,7 +52,7 @@ export function OurStorySection() {
                         */}
                         <div className="relative w-full h-112.5 md:h-137.5 lg:h-150 rounded-lg overflow-hidden shadow-elegant-lg">
                             <Image
-                                src="/img02.jpg"
+                                src="/chico.jpg"
                                 alt="Larissa e Gabriel"
                                 fill
                                 className="object-cover"
