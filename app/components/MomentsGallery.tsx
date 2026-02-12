@@ -11,7 +11,7 @@ const images = [
     { src: "/img03.jpg", alt: 'Momento especial 3' },
     { src: "/img04.jpeg", alt: 'Momento especial 4' },
     { src: "/img05.jpeg", alt: 'Momento especial 5' },
-    { src: "/img06.jpeg", alt: 'Momento especial 6' },
+    { src: "/img06.jpg", alt: 'Momento especial 6' },
 ];
 
 export function MomentsGallery() {
