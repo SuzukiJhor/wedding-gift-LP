@@ -18,12 +18,12 @@ export default function AgradecimentoPage() {
     const paymentId = params.get("payment_id");
 
     if (!paymentId) {
-      setStatus("not_found");
+      setTimeout(() => setStatus("not_found"), 0);
       return;
     }
 
     verifyPaymentAndSave(paymentId).then(res => {
-      setStatus(res.status);
+      setStatus(res.status ?? null);
       if (res.name) setName(res.name);
     });
   }, []);
