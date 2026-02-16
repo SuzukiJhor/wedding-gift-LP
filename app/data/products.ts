@@ -26,6 +26,14 @@ export const products: Product[] = [
     description: "Direito de dar um pitaco no casamento uma vez."
   },
   {
+    id: "44",
+    name: "TESTE",
+    category: "Brincadeiras & Liberdades",
+    price: 1.00,
+    image: "https://i.pinimg.com/736x/97/0b/93/970b937e0a0662746feb39cfdf157952.jpg",
+    description: "Teste de produto para verificar a funcionalidade do sistema."
+  },
+  {
     id: "43",
     name: "Ajuda na Lua de Mel",
     category: "Vida a Dois",

@@ -1,85 +1,109 @@
 "use server";
 
+import { MercadoPagoConfig, Preference } from "mercadopago";
 import { getSupabase } from "../rsvp/actions";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-export async function createAbacatePayBilling(formData: {
-  name: string,
-  email: string,
-  taxId: string,
-  message: string,
-  items: any[]
-}) {
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MP_ACCESS_TOKEN!,
+});
+
+type CheckoutItem = {
+  product: {
+    id: string | number;
+    name: string;
+    price: number | string;
+  };
+  quantity: number;
+};
+
+type CheckoutPayload = {
+  name: string;
+  email: string;
+  taxId: string;
+  message?: string;
+  items: CheckoutItem[];
+};
+
+export async function createCheckoutAction(data: CheckoutPayload) {
   try {
     const supabase = await getSupabase();
-    const cleanTaxId = formData.taxId.replace(/\D/g, "");
 
-    if (!formData.name || !formData.email || cleanTaxId.length < 11) {
-      return { error: "Dados insuficientes para processar o pagamento." };
+    // limpa CPF/CNPJ
+    const cleanTaxId = data.taxId.replace(/\D/g, "");
+
+    if (!data.name || !data.email || cleanTaxId.length < 11) {
+      return { error: "Dados inválidos." };
     }
 
-    const payload = {
-      frequency: "ONE_TIME",
-      methods: ["PIX", "CARD"],
-      products: formData.items.map(item => ({
-        externalId: String(item.product.id),
-        name: item.product.name,
-        quantity: item.quantity,
-        price: Math.round(Number(item.product.price) * 100),
-      })),
-      customer: {
-        name: formData.name.trim(),
-        email: formData.email.trim().toLowerCase(),
-        taxId: cleanTaxId,
-        cellphone: "11999999999"
-      },
-      returnUrl: `${baseUrl}`,
-      completionUrl: `${baseUrl}/agradecimento`,
-    };
+    if (!data.items?.length) {
+      return { error: "Nenhum item selecionado." };
+    }
 
-    const response = await fetch("https://api.abacatepay.com/v1/billing/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.ABACATEPAY_API_KEY}`
+    // cria preferência Mercado Pago
+    const preference = new Preference(client);
+
+    const result = await preference.create({
+      body: {
+        items: data.items.map(item => ({
+          id: String(item.product.id),
+          title: item.product.name,
+          quantity: item.quantity,
+          unit_price: Number(item.product.price),
+          currency_id: "BRL",
+        })),
+
+        payer: {
+          name: data.name.trim(),
+          email: data.email.trim().toLowerCase(),
+          identification: {
+            type: cleanTaxId.length === 11 ? "CPF" : "CNPJ",
+            number: cleanTaxId,
+          },
+        },
+
+        back_urls: {
+          success: `${baseUrl}/agradecimento`,
+          failure: `${baseUrl}/erro`,
+          pending: `${baseUrl}/pendente`,
+        },
+
+        // auto_return: "approved",
+
+        notification_url: `${baseUrl}/api/webhook/mercadopago`,
+
+        metadata: {
+          customer_name: data.name,
+          message: data.message ?? "",
+        },
       },
-      body: JSON.stringify(payload),
-      cache: 'no-store'
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Erro AbacatePay:", data);
-      return {
-        error: data.error || data.message || "Erro ao gerar link de pagamento."
-      };
+    if (!result.id) {
+      return { error: "Erro ao gerar preferência." };
     }
 
-    const insertPromises = formData.items.map((item: any) => {
-      return supabase.from('received_gifts').insert({
-        sender_name: formData.name,
-        message: formData.message,
+    // salva presentes como pendentes
+    const inserts = data.items.map(item =>
+      supabase.from("received_gifts").insert({
         gift_id: item.product.id,
+        sender_name: data.name,
+        message: data.message,
         amount_paid: Number(item.product.price) * item.quantity,
-        status: 'pending'
-      });
-    });
+        status: "pending",
+        preference_id: result.id,
+      })
+    );
 
-    const dbResults = await Promise.all(insertPromises);
+    await Promise.all(inserts);
 
-    const dbError = dbResults.find(r => r.error);
-    if (dbError) console.error("Erro ao salvar no banco:", dbError.error);
-
-    if (data.data && data.data.url) {
-      return { url: data.data.url };
-    }
-
-    return { error: "Não foi possível gerar a URL de checkout." };
-
-  } catch (error: any) {
-    console.error("Erro crítico na action createAbacatePayBilling:", error);
-    return { error: "Falha interna na comunicação com o provedor de pagamentos." };
+    return {
+      url: `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${result.id}`,
+    };
+  } catch (error) {
+    console.error("Erro checkout:", error);
+    return { error: "Erro interno ao gerar pagamento." };
   }
 }

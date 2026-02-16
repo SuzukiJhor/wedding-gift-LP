@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Heart, Loader2, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCartStore } from '../stores/cartStore';
-import { createAbacatePayBilling } from '../checkout/actions';
+import { createCheckoutAction } from '../checkout/actions';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -49,7 +49,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     setIsLoading(true);
 
     try {
-      const result = await createAbacatePayBilling({
+      const result = await createCheckoutAction({
         name: formData.name,
         message: formData.message,
         email: formData.email,
