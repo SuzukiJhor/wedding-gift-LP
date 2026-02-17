@@ -70,7 +70,7 @@ export async function createCheckoutAction(data: CheckoutPayload) {
           pending: `${baseUrl}/pendente`,
         },
 
-        // auto_return: "approved",
+        auto_return: "approved",
 
         notification_url: `${baseUrl}/api/webhook/mercadopago`,
 
