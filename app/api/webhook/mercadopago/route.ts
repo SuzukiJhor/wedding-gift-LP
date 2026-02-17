@@ -8,7 +8,7 @@ const mp = new MercadoPagoConfig({
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export async function POST(req: Request) {
@@ -24,32 +24,39 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No payment id" }, { status: 400 });
     }
 
-    // consulta pagamento real
     const payment = await new Payment(mp).get({ id: paymentId });
 
     const status = payment.status;
-    const preferenceId = payment.order?.id || payment.metadata?.preference_id;
-    const payerName = payment.payer?.first_name || "Convidado";
+    const preferenceId =
+      payment.order?.id || payment.external_reference;
 
-    console.log("Pagamento recebido:", paymentId, status);
+    console.log("📩 MP Webhook:", {
+      paymentId,
+      status,
+      preferenceId,
+    });
 
-    if (status === "approved") {
-      // atualiza presentes
-      await supabase
+    if (status === "approved" && preferenceId) {
+      const { data, error } = await supabase
         .from("received_gifts")
         .update({
           status: "paid",
           payment_id: paymentId,
         })
-        .eq("preference_id", preferenceId);
+        .eq("preference_id", preferenceId)
+        .select();
 
-      console.log(`✅ Pagamento aprovado de ${payerName}`);
+      if (error) {
+        console.error("DB error:", error);
+      }
+
+      console.log("🎁 Atualizados:", data?.length ?? 0);
     }
 
     return NextResponse.json({ ok: true });
 
   } catch (err) {
-    console.error("Webhook error:", err);
+    console.error("Webhook fatal:", err);
     return NextResponse.json({ error: "Webhook failure" }, { status: 500 });
   }
 }
