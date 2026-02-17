@@ -100,7 +100,7 @@ export async function createCheckoutAction(data: CheckoutPayload) {
     await Promise.all(inserts);
 
     return {
-      url: `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${result.id}`,
+      url: `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${result.id}&platform_id=mp&source=web`,
     };
   } catch (error) {
     console.error("Erro checkout:", error);
