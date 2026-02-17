@@ -8,9 +8,10 @@ const mp = new MercadoPagoConfig({
 export default async function PendentePage({
   searchParams,
 }: {
-  searchParams: { payment_id?: string };
+  searchParams: Promise<{ payment_id?: string }>;
 }) {
-  const paymentId = searchParams?.payment_id;
+  const params = await searchParams;
+  const paymentId = params?.payment_id ?? null;
 
   if (!paymentId) {
     return <div>Pagamento não encontrado.</div>;
